@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class BuildTower : MonoBehaviour {
 
-    public GameObject PinkTower;
-    public GameObject GreenTower;
-    public Vector3[] TowerPositions;
-    public int position_num;
+    public GameObject[] TowerPrefab;
+    public int Tower_Sum;
     public int tower_num;
+    public int size;
     public bool is_ok;
     Transform tf;
     ShowScore ss;
@@ -19,31 +18,22 @@ public class BuildTower : MonoBehaviour {
         var scorePane = GameObject.Find("/Canvas/NormalPane/Yourscore");
         ss = scorePane.GetComponent<ShowScore>();
         is_ok = true;
-        position_num = 0;
     }
 
     // Update is called once per frame
     void Update () {
         if (Input.GetKeyDown(KeyCode.X))
         {
-            if (ss.GetRealScore() >= 10.0f && is_ok)
+            if (Tower_Sum > 0 && is_ok)
             {
-                    ss.BuildTower();
                     BuildATower(GetTower());
-
             }
             is_ok = true;
         }
 
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            if (tower_num == 0)
-            {
-                tower_num = 1;
-            }else
-            {
-                tower_num = 0;
-            }
+            tower_num = (tower_num + 1) % size;
         }
 
     }
@@ -51,15 +41,13 @@ public class BuildTower : MonoBehaviour {
     public void BuildATower(GameObject Tower)
     {
         GameObject item = Instantiate(Tower, new Vector3(tf.position.x,0.6f, tf.position.z), Quaternion.identity);
-        TowerPositions[position_num] = tf.position;
-        position_num += 1;
     }
 
-    GameObject GetTower()
+    public GameObject GetTower()
     {
-        GameObject[] enemies = { PinkTower, GreenTower };
-        GameObject enemy = enemies[tower_num];
-        return enemy;
+        GameObject[] towers = TowerPrefab;
+        GameObject tower = towers[tower_num];
+        return tower;
     }
 
     public int GetTowerNum()
@@ -75,8 +63,13 @@ public class BuildTower : MonoBehaviour {
 		if (object_collided_with.tag == "tower")
 		{
 			is_ok = false;
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                Destroy(object_collided_with);
+                is_ok = true;
+            }
 
-		}
+        }
 
 	}
 

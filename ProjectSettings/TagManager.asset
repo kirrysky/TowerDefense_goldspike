@@ -8,6 +8,11 @@ TagManager:
   - pinkball
   - greenball
   - tower
+  - ground
+  - blueball
+  - yellowball
+  - redball
+  - blackball
   layers:
   - Default
   - TransparentFX

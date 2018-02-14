@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class BuildEnemy : MonoBehaviour {
 
-    public GameObject PinkEnemyPrefab;
-    public GameObject GreenEnemyPrefab;
+    public GameObject[] EnemyPrefab;
+    public Vector3[] enemies;
+    public Vector3 enemy_direction;
+    public float movement_speed;
     public bool is_start;
     public float start_time;
 
@@ -26,18 +28,21 @@ public class BuildEnemy : MonoBehaviour {
     public void BuildAEnemy(GameObject Enemy,Vector3 enemy_position)
     {
         GameObject item = Instantiate(Enemy, enemy_position, Quaternion.identity);
+        Rigidbody enemy_rb;
+        enemy_rb = item.GetComponent<Rigidbody>();
+        enemy_rb.velocity = enemy_direction * movement_speed;
     }
 
     Vector3 GetInput()
     {
-        Vector3[] directions = { new Vector3(0.5f,1.45f,4.5f), new Vector3(1.5f, 1.45f, 4.5f),new Vector3(2.5f, 1.45f, 4.5f), new Vector3(3.5f, 1.45f, 4.5f)};
+        Vector3[] directions = enemies;
         Vector3 direction = directions[Random.Range(0, directions.Length)];
         return direction;
     }
 
     GameObject GetEnemy()
     {
-        GameObject[] enemies = {PinkEnemyPrefab, GreenEnemyPrefab};
+        GameObject[] enemies = EnemyPrefab;
         GameObject enemy = enemies[Random.Range(0, enemies.Length)];
         return enemy;
     }

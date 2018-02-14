@@ -6,6 +6,10 @@ public class ArrowKeyMovement : MonoBehaviour {
 
     public float movement_speed = 4;
     public Vector3 CurrentPosition;
+    public float up_limit;
+    public float down_limit;
+    public float left_limit;
+    public float right_limit;
 
     Transform tf;
     public bool is_move;
@@ -25,10 +29,10 @@ public class ArrowKeyMovement : MonoBehaviour {
             float vertical_input = Input.GetAxisRaw("Vertical");
             if (Mathf.Abs(horizontal_input) > 0.0f)
                 vertical_input = 0.0f;
-            if((!(tf.position.x <= 0.5 && horizontal_input < 0))&&
-               (!(tf.position.x >= 3.5 && horizontal_input > 0))&&
-               (!(tf.position.z <= -0.5 && vertical_input < 0))&&
-               (!(tf.position.z >= 4.5 && vertical_input > 0))) {
+            if((!(tf.position.x <= left_limit && horizontal_input < 0))&&
+               (!(tf.position.x >= right_limit && horizontal_input > 0))&&
+               (!(tf.position.z <= down_limit && vertical_input < 0))&&
+               (!(tf.position.z >= up_limit && vertical_input > 0))) {
                 tf.position += new Vector3(horizontal_input, 0.0f, vertical_input);
             }
 
@@ -37,19 +41,6 @@ public class ArrowKeyMovement : MonoBehaviour {
             }
             CurrentPosition = tf.position;
         }
-        //Move current player
-        
-        //Vector3 current_input = GetInput();
-        //rb.velocity = current_input * movement_speed;
-
-
-        //make every movement half tile
-        //if (current_input.x == 0 && current_input.z == 0)
-        //{
-        //    correct_position_x = Mathf.Round(tf.position.x * 2);
-        //    correct_position_z = Mathf.Round(tf.position.z * 2);
-        //    tf.position = new Vector3(correct_position_x / 2, 0.0f, correct_position_z / 2);
-       // }
     }
 
     IEnumerator Move()
@@ -58,4 +49,5 @@ public class ArrowKeyMovement : MonoBehaviour {
         yield return new WaitForSeconds(0.3f);
         is_move = true;
     }
+
 }

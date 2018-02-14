@@ -7,7 +7,7 @@ public class EnemyMovement : MonoBehaviour
 
     // Inspector Fields
     public float movement_speed;
-    Vector3 current_input;
+    public Vector3 current_input;
 
     Rigidbody rb;
     //Transform tf;

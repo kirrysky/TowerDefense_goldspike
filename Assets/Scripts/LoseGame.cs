@@ -13,6 +13,10 @@ public class LoseGame : MonoBehaviour {
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
+		if (Input.GetKeyDown(KeyCode.Q))
+		{
+			SceneManager.LoadScene(0);
+		}
     }
 
     // Use this for initialization

@@ -7,6 +7,7 @@ public class EnemyHeal: MonoBehaviour
 
     public int heal;
     public GameObject enemy;
+	public GameObject particle;
     SpriteRenderer sr;
     ShowScore ss;
     public string tagname;
@@ -48,10 +49,10 @@ public class EnemyHeal: MonoBehaviour
     IEnumerator TurnRed()
     {
 
-       // sr.color = new Vector4(1, 0, 0, 1);
         heal -= 1;
+		Vector3 particleposition = transform.position - Vector3.forward;
+		GameObject item = Instantiate(particle, particleposition, Quaternion.identity);
         yield return new WaitForSeconds(1.0f);
-       // sr.color = new Vector4(1, 1, 1, 1);
 
     }
 

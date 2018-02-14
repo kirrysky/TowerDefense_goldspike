@@ -20,25 +20,17 @@ public class ShowScore : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (your_score < 300)
-        {
-            text_component.text = "aim  money: " + aim_score.ToString()+"\n";
-            text_component.text += "your money: " + your_score.ToString();
+            text_component.text = "aim  score: " + aim_score.ToString()+"\n";
+            text_component.text += "your score: " + your_score.ToString();
             if(your_score >= aim_score)
             {
-                aim_score += 50f;
-                StartCoroutine(Levelup());
+                WinPane.SetActive(true);
             }
-        }
-        else
-        {
-            WinPane.SetActive(true);
-        }
 	}
 
     public void GetScore()
     {
-        your_score += 1.5f;
+        your_score += 1.0f;
     }
 
     public void BuildTower()
